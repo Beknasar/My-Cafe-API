@@ -102,7 +102,7 @@ def patch_new_price(cafe_id):
         cafe.coffee_price = new_price
         db.session.commit()
         # 200 = Ok
-        return jsonify(response={"success": "Successfully added the new cafe."}), 200
+        return jsonify(response={"success": "Successfully changed coffee price."}), 200
     else:
         # 404 = Resource not found
         return jsonify(error={"Not Found": "Sorry, a cafe with that id was not found in the database"}), 404
