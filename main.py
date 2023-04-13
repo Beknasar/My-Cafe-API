@@ -68,9 +68,9 @@ def get_cafe_at_location():
     query_location = request.args.get("loc")
     cafe = db.session.query(Cafe).filter_by(location=query_location).first()
     if cafe:
-        return jsonify(cafe=cafe.to_dict())
+        return jsonify(cafe=cafe.to_dict()), 200
     else:
-        return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."})
+        return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."}), 404
 
 
 # # HTTP POST - Create Record
@@ -92,7 +92,20 @@ def post_new_cafe():
     db.session.commit()
     return jsonify(response={"success": "Successfully added the new cafe."})
 
+
 # # HTTP PUT/PATCH - Update Record
+@app.route("/update-price/<int:cafe_id>", methods=["PATCH"])
+def patch_new_price(cafe_id):
+    cafe = db.session.query(Cafe).get(cafe_id)
+    new_price = request.args.get('new_price')
+    if cafe:
+        cafe.coffee_price = new_price
+        db.session.commit()
+        # 200 = Ok
+        return jsonify(response={"success": "Successfully added the new cafe."}), 200
+    else:
+        # 404 = Resource not found
+        return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."}), 404
 
 # # HTTP DELETE - Delete Record
 
