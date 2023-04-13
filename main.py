@@ -105,7 +105,7 @@ def patch_new_price(cafe_id):
         return jsonify(response={"success": "Successfully added the new cafe."}), 200
     else:
         # 404 = Resource not found
-        return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."}), 404
+        return jsonify(error={"Not Found": "Sorry, a cafe with that id was not found in the database"}), 404
 
 # # HTTP DELETE - Delete Record
 
